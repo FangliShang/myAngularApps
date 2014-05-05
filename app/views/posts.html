@@ -1,0 +1,42 @@
+<div class="container posts-page">
+
+  <br>
+  <br>
+  Search: <input ng-model="query">
+  <br>
+  <br>
+  
+ 
+  <div class="post row" ng-repeat="post in posts | filter:query | orderBy:'-score'">
+    <div class="col-xs-1" ng-show="signedIn()">
+      <div class="vote up"><span ng-hide="downVoted(post)"  ng-click="upVotePost(post)">▲</span></div>
+ 
+      <div class="vote down"><span ng-hide="upVoted(post)" ng-click="downVotePost(post)">▼</span></div>
+ 
+    </div>
+    <div class="col-md-9 col-xs-11">
+ 
+      <div class="info">
+        <a href="{{ post.url }}" title="{{post.url}}">
+          {{ post.title }}
+          <span class="url">({{ post.url | hostnameFromUrl }})</span>
+        </a>
+      </div>
+      <div>
+        <span>{{ post.score || 0 }} votes</span>
+        &mdash;
+        <span>submitted by <a href="#/users/{{ post.idUser.username }}" title="view the poster">
+          <img ng-src="http://www.gravatar.com/avatar/{{ post.idUser.md5Hash }}" class="nav-pic" />
+          {{ post.idUser.username }}</a></span><br>
+        <a href="#/posts/{{ post.idPost }}">comments</a>
+        <a ng-click="deletePost(post.idPost,$index)" ng-show="signedIn() &&currentUser.username===post.idUser.username">delete</a>
+      </div>
+    </div>
+    <div class="col-md-2">
+      
+    </div>
+ 
+  </div>
+ 
+</div>
+

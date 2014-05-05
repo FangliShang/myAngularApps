@@ -1,0 +1,67 @@
+CREATE TABLE User(
+	idUser INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(30) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	password VARCHAR(50) NOT NULL
+
+)
+ENGINE = InnoDB;
+
+
+CREATE TABLE Post(
+	idPost INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(50),
+	score INT NOT NULL,
+	url VARCHAR(200) NOT NULL,
+	idUser INT UNSIGNED NOT NULL,
+	CONSTRAINT FOREIGN KEY (idUser) REFERENCES User(idUser)
+)
+ENGINE = InnoDB;
+
+CREATE TABLE Comment(
+	idComment INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	idPost INT UNSIGNED NOT NULL,
+	idUser INT UNSIGNED NOT NULL,
+	content TEXT NOT NULL,
+	CONSTRAINT FOREIGN KEY (idPost) REFERENCES Post(idPost),
+	CONSTRAINT FOREIGN KEY (idUser) REFERENCES User(idUser)
+)
+ENGINE = InnoDB;
+
+CREATE TABLE UpVote(
+	idUpVote INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	idPost INT UNSIGNED NOT NULL,
+	idUser INT UNSIGNED NOT NULL,
+	CONSTRAINT FOREIGN KEY (idPost) REFERENCES Post(idPost),
+	CONSTRAINT FOREIGN KEY (idUser) REFERENCES User(idUser)
+)
+ENGINE = InnoDB;
+
+CREATE TABLE DownVote(
+	idDownVote INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	idPost INT UNSIGNED NOT NULL,
+	idUser INT UNSIGNED NOT NULL,
+	CONSTRAINT FOREIGN KEY (idPost) REFERENCES Post(idPost),
+	CONSTRAINT FOREIGN KEY (idUser) REFERENCES User(idUser)
+)
+ENGINE = InnoDB;
+
+
+INSERT INTO User
+VALUES(1,'xixi','xixi@gmail.com','xixi','jfojojsnofjsofos');
+INSERT INTO User
+VALUES(2,'hehe','hehe@gmail.com','hehe','jfojocvcvofjsofos');
+INSERT INTO User
+VALUES(3,'haha','haha@gmail.com','haha','jfojojdffsfjsofos');
+INSERT INTO User
+VALUES(4,'hoho','hoho@gmail.com','hoho','jfozezejsnofjsofos');
+
+
+INSERT INTO Post
+VALUES(1,'google',0,'google.com',1);
+INSERT INTO Post
+VALUES(2,'hehe',0,'hehe.com',2);
+INSERT INTO Post
+VALUES(3,'haha',0,'haha.com',3);
+INSERT INTO Post
+VALUES(4,'hoho',0,'hoho.com',4);
